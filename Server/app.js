@@ -1,9 +1,11 @@
+env.config()
 import express, { urlencoded } from 'express'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
+import env from 'dotenv'
+import dbConnect from './db/db.js'
 
 const app = express()
-const PORT = 8000
 
 app.use(express.json())
 app.use(cookieParser())
@@ -17,11 +19,11 @@ const corsOrigin = {
 app.use(cors(corsOrigin))
 
 
-app.listen(PORT, () => {
+app.listen(process.env.PORT, () => {
   console.log(
-    'server is running on port', PORT
+    'server is running on port', process.env.PORT
   );
-  
+  dbConnect()
 })
 
 export default app;
